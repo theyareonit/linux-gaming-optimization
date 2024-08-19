@@ -74,6 +74,7 @@ And similarly to the issue I personally experienced, the impression I get is tha
 | `zswap.enabled=0` | Disable [zswap](https://wiki.archlinux.org/title/Zswap). |
 | `audit=0` | Disable the [audit framework](https://wiki.archlinux.org/title/Audit_framework) to marginally reduce overhead (mentioned in section 8 of RHEL's [latency tuning guide](https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf)). |
 | `usbcore.autosuspend=60` | Set USB autosuspend timer to 60 seconds. Alternatively, replace `60` with any other value. A negative value will disable autosuspend entirely. |
+| `workqueue.power_efficient=false` | Disable [power-efficient workqueues](https://lwn.net/Articles/731052/) if enabled in your kernel configuration, which may cause cache misses due to workqueues being scheduled onto different cores. |
 | `skew_tick=1` | Skew timer ticks on different cores to [reduce lock contention](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux_for_real_time/7/html/tuning_guide/reduce_cpu_performance_spikes). |
 | `threadirqs` | [Thread interrupt handlers](https://wiki.linuxfoundation.org/realtime/documentation/technical_details/threadirq) by default. |
 | `tsc=reliable` | Disable clocksource verification for TSC, which may slightly reduce overhead. Not recommended due to the potential for [clock desync](https://lwn.net/Articles/388188/). |
