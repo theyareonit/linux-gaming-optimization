@@ -10,31 +10,31 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 
 # Sections
 
-* [Distributions](#distributions)
+* [1. Distributions](#1-distributions)
     * [CachyOS](#cachyos)
     * [Gentoo](#gentoo)
-* [Kernel Parameters](#kernel-parameters)
+* [2. Kernel Parameters](#2-kernel-parameters)
     * [General](#general)
     * [Intel CPUs](#intel-cpus)
     * [AMD CPUs](#amd-cpus)
-* [Schedulers](#schedulers)
-* [Display servers, compositors, & window managers](#display-servers-compositors--window-managers)
+* [3. Schedulers](#3-schedulers)
+* [4. Display servers, compositors, & window managers](#4-display-servers-compositors--window-managers)
     * [Xorg](#xorg)
     * [Wayland](#wayland)
-* [NVIDIA GPUs](#nvidia-gpus)
-    * [nvidia-settings](#nvidia-settings)
-* [AMD GPUs](#amd-gpus)
-* [Intel GPUs](#intel-gpus)
-* [Wine](#wine)
-* [libinput](#libinput)
+* [5. libinput](#5-libinput)
     * [Mouse sensitivity](#mouse-sensitivity)
     * [Debouncing](#debouncing)
-* [Recording](#recording)
-* [Audio](#audio)
-* [File systems & storage](#file-systems--storage)
-* [Further Reading](#further-reading)
+* [6. NVIDIA GPUs](#6-nvidia-gpus)
+    * [nvidia-settings](#nvidia-settings)
+* [7. AMD GPUs](#7-amd-gpus)
+* [8. Intel GPUs](#8-intel-gpus)
+* [9. Audio](#9-audio)
+* [10. File systems & storage](#10-file-systems--storage)
+* [11. Wine](#11-wine)
+* [12. Recording](#12-recording)
+* [13. Further Reading](#13-further-reading)
 
-# Distributions
+# 1. Distributions
 
 ## CachyOS
 
@@ -54,7 +54,7 @@ I'm not going to go too deep into kernel-related tuning (besides kernel paramete
 
 Source-based distribution which may offer minor performance gains over CachyOS (in exchange for time spent configuring & compiling). Gentoo also now provides pre-built binaries for common packages (including some built specifically for the x86-64-v3 ISA, similar to CachyOS), but it's still more work than CachyOS for relatively little benefit.
 
-# Kernel parameters
+# 2. Kernel parameters
 
 Don't use kernel parameters if you don't know what effects they have! This applies doubly so for random kernel parameters you find online with no explanation of what they do.
 
@@ -98,7 +98,7 @@ Use [`i7z`](https://code.google.com/archive/p/i7z/) to verify that your processo
 
 TODO
 
-# Schedulers
+# 3. Schedulers
 
 * [BORE](https://github.com/firelzrd/bore-scheduler)
 
@@ -108,7 +108,7 @@ TODO
 
 (from Aarrayy in the CachyOS Discord)
 
-# Display servers, compositors, & window managers
+# 4. Display servers, compositors, & window managers
 
 TODO: WM/compositor comparison
 
@@ -122,47 +122,7 @@ Ensure you disable desktop composition while gaming if using Xorg. The way to do
 
 Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with relatively low latency, without the need for VRR.
 
-# NVIDIA GPUs
-
-This section is written with Xorg & the proprietary NVIDIA drivers in mind.
-
-* [OpenGL environment variables](https://download.nvidia.com/XFree86/Linux-x86_64/555.58.02/README/openglenvvariables.html): Of particular interest is the section on `__GL_YIELD`. It's also worth looking into `__GL_MaxFramesAllowed`, but I can't find any official documentation for it.
-
-* [Kernel Module Parameters](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters): Notable are `NVreg_InitializeSystemMemoryAllocations` and `NVreg_UsePageAttributeTable`, though CachyOS already sets these on its own.
-
-* [Tips and tricks](https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks): Of particular interest are the sections on overclocking, setting static clocks, configuring fan speed on login, and the `nvidia_drm.modeset` kernel parameter (which CachyOS also sets on its own).
-
-* [Custom EDID](https://nvidia.custhelp.com/app/answers/detail/a_id/3571/~/managing-a-display-edid-on-linux): CRU works fine through Wine as long as you export the EDID and load it this way.
-
-* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564)
-
-* [Raise voltage](https://www.phoronix.com/news/MTg0MDI): Not sure if this works on newer cards.
-
-## nvidia-settings
-
-The settings you configure with `nvidia-settings` sometimes aren't automatically loaded by the system on startup. Make sure to run [`nvidia-settings --load-config-only`](https://forums.developer.nvidia.com/t/nvidia-settings-load-config-only-not-working/142614/5) at some point after starting your display server.
-
-Ensure `Sync to VBlank`, `Force Composition Pipeline`, and `Force Full Composition Pipeline` are disabled.
-
-Disable `Dithering` within the `Controls` section for your display.
-
-# AMD GPUs
-
-TODO
-
-# Intel GPUs
-
-TODO
-
-# Wine
-
-If on an AMD or Intel GPU, consider [static-wine32](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games.
-
-If running Wine through the command line or a script, ensure you're using [dxvk](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
-
-# libinput
-
-libinput is a driver commonly used to process input on both Xorg and Wayland.
+# 5. libinput
 
 ## Mouse sensitivity
 
@@ -196,21 +156,59 @@ MatchUdevType=mouse
 ModelBouncingKeys=1
 ```
 
-# Recording
+# 6. NVIDIA GPUs
+
+This section is written with Xorg & the proprietary NVIDIA drivers in mind.
+
+* [OpenGL environment variables](https://download.nvidia.com/XFree86/Linux-x86_64/555.58.02/README/openglenvvariables.html): Of particular interest is the section on `__GL_YIELD`. It's also worth looking into `__GL_MaxFramesAllowed`, but I can't find any official documentation for it.
+
+* [Kernel Module Parameters](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters): Notable are `NVreg_InitializeSystemMemoryAllocations` and `NVreg_UsePageAttributeTable`, though CachyOS already sets these on its own.
+
+* [Tips and tricks](https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks): Of particular interest are the sections on overclocking, setting static clocks, configuring fan speed on login, and the `nvidia_drm.modeset` kernel parameter (which CachyOS also sets on its own).
+
+* [Custom EDID](https://nvidia.custhelp.com/app/answers/detail/a_id/3571/~/managing-a-display-edid-on-linux): CRU works fine through Wine as long as you export the EDID and load it this way.
+
+* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564)
+
+* [Raise voltage](https://www.phoronix.com/news/MTg0MDI): Not sure if this works on newer cards.
+
+## nvidia-settings
+
+The settings you configure with `nvidia-settings` sometimes aren't automatically loaded by the system on startup. Make sure to run [`nvidia-settings --load-config-only`](https://forums.developer.nvidia.com/t/nvidia-settings-load-config-only-not-working/142614/5) at some point after starting your display server.
+
+Ensure `Sync to VBlank`, `Force Composition Pipeline`, and `Force Full Composition Pipeline` are disabled.
+
+Disable `Dithering` within the `Controls` section for your display.
+
+# 7. AMD GPUs
+
+TODO
+
+# 8. Intel GPUs
+
+TODO
+
+# 9. Audio
+
+TODO
+
+# 10. File systems & storage
+
+TODO
+
+# 11. Wine
+
+If on an AMD or Intel GPU, consider [static-wine32](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games.
+
+If running Wine through the command line or a script, ensure you're using [dxvk](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
+
+# 12. Recording
 
 [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features.
 
 Avoid OBS on Linux if performance is a concern.
 
-# Audio
-
-TODO
-
-# File systems & storage
-
-TODO
-
-# Further reading
+# 13. Further reading
 
 [CachyOS Discord](https://discord.gg/cachyos-862292009423470592)
 
