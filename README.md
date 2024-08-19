@@ -168,7 +168,7 @@ This section is written with Xorg & the proprietary NVIDIA drivers in mind.
 
 * [Custom EDID](https://nvidia.custhelp.com/app/answers/detail/a_id/3571/~/managing-a-display-edid-on-linux): CRU works fine through Wine as long as you export the EDID and load it this way.
 
-* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564)
+* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564): Might work to raise voltage too if you're clever?
 
 * [Raise voltage](https://www.phoronix.com/news/MTg0MDI): Not sure if this works on newer cards.
 
@@ -198,9 +198,11 @@ TODO
 
 # 11. Wine
 
-If on an AMD or Intel GPU, consider [static-wine32](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games.
+If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games to take advantage of LTO.
 
-If running Wine through the command line or a script, ensure you're using [dxvk](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
+If running Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
+
+[`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
 # 12. Recording
 
