@@ -1,6 +1,6 @@
 # Low-latency Linux gaming
 
-THIS GUIDE IS UNFINISHED, AND WILL PROBABLY NEVER BE FINISHED.
+THIS GUIDE IS UNFINISHED, AND WILL LIKELY NEVER BE FINISHED.
 
 This is not a step-by-step guide but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming. 
 
@@ -136,7 +136,7 @@ This section is written with Xorg & the proprietary NVIDIA drivers in mind.
 
 * [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564)
 
-* [Raise voltage](https://www.phoronix.com/news/MTg0MDI)
+* [Raise voltage](https://www.phoronix.com/news/MTg0MDI): Not sure if this works on newer cards.
 
 ## nvidia-settings
 
@@ -180,7 +180,7 @@ EndSection
 
 Setting `AccelProfile` to `flat` disables mouse acceleration.
 
-`TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse sensitivity is effectively divided by the last digit of this matrix. For instance, setting the last digit to `4`, i.e. `Option "TransformationMatrix" "1 0 0 0 1 0 0 0 4"`, will divide your effective sensitivity by 4 (resulting in 25% sensitivity). Setting the last digit to `0.25` will multiply your effective sensitivity by 4 (resulting in 400% sensitivity).
+`TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse sensitivity is effectively divided by the last digit of this matrix. For instance, setting the last digit to `4`, i.e. `Option "TransformationMatrix" "1 0 0 0 1 0 0 0 4"`, will divide your effective sensitivity by 4 (resulting in 25% sensitivity). Setting the last digit to `0.25` will divide your effective sensitivity by 0.25 (resulting in 400% sensitivity).
 
 Instead of `MatchIsPointer`, you can do something like `MatchVendor "Razer"` or `MatchProduct "Viper 8K"` if you don't want the configuration to apply to all mice: in this example, it will search for the substring `"Viper 8K"` within the product's name, so you don't need to know the full, exact name of the mouse that your system sees.
 
