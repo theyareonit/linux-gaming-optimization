@@ -68,7 +68,7 @@ And similarly to the issue I personally experienced, the impression I get is tha
 
 | Parameter | Explanation |
 | ---       | ---         |
-| `mitigations=off` | Disable CPU security mitigations, which often come with a performance penalty. Obviously, this will make your system less secure. |
+| `mitigations=off` | Disable CPU security mitigations, which often come with a performance penalty. THIS WILL MAKE YOUR SYSTEM SIGNIFICANTLY LESS SECURE. APPLY THIS AT YOUR OWN RISK. |
 | `nowatchdog` | Disable watchdog timers to [reduce interrupts](https://wiki.archlinux.org/title/Power_management#Disabling_NMI_watchdog). |
 | `nosoftlockup` | Don't log backtraces for processes that execute for longer than 120 seconds without yielding. Probably doesn't matter for any games. |
 | `audit=0` | Disable the [audit framework](https://wiki.archlinux.org/title/Audit_framework) to marginally reduce overhead (mentioned in section 8 of RHEL's [latency tuning guide](https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf)). |
@@ -200,7 +200,7 @@ TODO
 
 # 11. Wine
 
-If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games to take advantage of LTO.
+If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) to take advantage of LTO for 32-bit Windows games.
 
 If running Direct3D games with Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
 
@@ -208,7 +208,7 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 # 12. Misc.
 
-- [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. Avoid OBS if performance is a concern.
+- [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. If you need the functionality offered by OBS instead, consider using [`obs-vkcapture`](https://github.com/nowrep/obs-vkcapture), and potentially [`obs-vaapi`](https://github.com/fzwoch/obs-vaapi) if on an AMD GPU.
 
 - [Don't use `irqbalance`](https://www.reddit.com/r/linux_gaming/comments/emnu3k/removing_irqbalance_fixed_major_stuttering_in/fdqykma/). Manually setting IRQ affinities is also typically not necessary on Linux either; the kernel does a good job on its own.
 
