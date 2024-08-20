@@ -2,7 +2,7 @@
 
 THIS GUIDE IS UNFINISHED, AND MAY NEVER BE FINISHED.
 
-This is not a step-by-step guide but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming. 
+This is not a step-by-step instruction manual but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming.
 
 This is targeted toward more experienced users, due to the fact that many settings listed here cannot be blindly applied, and require some understanding of what is going on. That said, I don't claim to be an authority on this subject either, and some information here may be incorrect or misleading.
 
@@ -108,7 +108,7 @@ TODO
 
 (from Aarrayy in the CachyOS Discord)
 
-If unsure, `BORE` or `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software).
+If unsure, `BORE` or `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord).
 
 # 4. Display servers, compositors, & window managers
 
@@ -212,7 +212,9 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 - [Don't use `irqbalance`](https://www.reddit.com/r/linux_gaming/comments/emnu3k/removing_irqbalance_fixed_major_stuttering_in/fdqykma/). Manually setting IRQ affinities is also typically not necessary on Linux either; the kernel does a good job on its own.
 
-- Make sure to add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS, also make sure to use `ananicy-cpp` rather than `ananicy`).
+- Use [`evhz`](https://git.sr.ht/~iank/evhz) or [`MouseTester`](https://github.com/valleyofdoom/MouseTester) (through Wine) to ensure that your mouse is polling at the correct rate. For `MouseTester`, you may have to hover your cursor over the data plot window to get accurate results.
+
+- Add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS). Make sure to use `ananicy-cpp` rather than `ananicy`. Also, don't use `ananicy-cpp` in combination with `gamemode`.
 
 - Nvidia is perfectly fine on Linux with the newest drivers, don't listen to anyone who says you need to buy AMD to have a good experience.
 
