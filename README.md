@@ -71,7 +71,6 @@ And similarly to the issue I personally experienced, the impression I get is tha
 | `mitigations=off` | Disable CPU security mitigations, which often come with a performance penalty. Obviously, this will make your system less secure. |
 | `nowatchdog` | Disable watchdog timers to [reduce interrupts](https://wiki.archlinux.org/title/Power_management#Disabling_NMI_watchdog). |
 | `nosoftlockup` | Don't log backtraces for processes that execute for longer than 120 seconds without yielding. Probably doesn't matter for any games. |
-| `zswap.enabled=0` | Disable [zswap](https://wiki.archlinux.org/title/Zswap). |
 | `audit=0` | Disable the [audit framework](https://wiki.archlinux.org/title/Audit_framework) to marginally reduce overhead (mentioned in section 8 of RHEL's [latency tuning guide](https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf)). |
 | `usbcore.autosuspend=60` | Set USB autosuspend timer to 60 seconds. Alternatively, replace `60` with any other value. A negative value will disable autosuspend entirely. |
 | `workqueue.power_efficient=false` | Disable [power-efficient workqueues](https://lwn.net/Articles/731052/) if enabled in your kernel configuration, which may cause cache misses due to workqueues being scheduled onto different cores. |
@@ -115,13 +114,13 @@ TODO: WM/compositor comparison
 
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, usually the safer choice unless you're trying to do multi-monitor VRR. Xorg also makes it significantly easier to configure Nvidia drivers.
+The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you're trying to do multi-monitor VRR. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
 ## Wayland
 
-Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with relatively low latency, without the need for VRR.
+Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR.
 
 # 5. libinput
 
@@ -201,7 +200,7 @@ TODO
 
 If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) for 32-bit Windows games to take advantage of LTO.
 
-If running Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
+If running Direct3D games with Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
 
 [`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
