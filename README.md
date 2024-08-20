@@ -1,6 +1,6 @@
 # Low-latency Linux gaming
 
-THIS GUIDE IS UNFINISHED, AND WILL LIKELY NEVER BE FINISHED.
+THIS GUIDE IS UNFINISHED, AND MAY NEVER BE FINISHED
 
 This is not a step-by-step guide but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming. 
 
@@ -107,6 +107,8 @@ TODO
 ![scx](resources/scx.png)
 
 (from Aarrayy in the CachyOS Discord)
+
+If unsure, `BORE` or `rusty` are both solid picks (BORE is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software).
 
 # 4. Display servers, compositors, & window managers
 
