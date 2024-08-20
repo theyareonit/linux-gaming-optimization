@@ -68,7 +68,7 @@ And similarly to the issue I personally experienced, the impression I get is tha
 
 | Parameter | Explanation |
 | ---       | ---         |
-| `mitigations=off` | Disable CPU security mitigations, which often come with a performance penalty. THIS WILL MAKE YOUR SYSTEM SIGNIFICANTLY LESS SECURE. APPLY THIS AT YOUR OWN RISK. |
+| `mitigations=off` | Disable CPU security mitigations, which often come with a performance penalty. **This will make your system significantly less secure, apply at your own risk.** |
 | `nowatchdog` | Disable watchdog timers to [reduce interrupts](https://wiki.archlinux.org/title/Power_management#Disabling_NMI_watchdog). |
 | `nosoftlockup` | Don't log backtraces for processes that execute for longer than 120 seconds without yielding. Probably doesn't matter for any games. |
 | `audit=0` | Disable the [audit framework](https://wiki.archlinux.org/title/Audit_framework) to marginally reduce overhead (mentioned in section 8 of RHEL's [latency tuning guide](https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf)). |
@@ -128,7 +128,7 @@ Not a display server in itself, but a protocol implemented by various display se
 
 ## Mouse sensitivity
 
-libinput makes it difficult to set mouse sensitivity to an exact ratio (e.g. exactly 50% sensitivity). There is a way to achieve this, however, although it only works on Xorg (I'm not sure of any way to do it on Wayland). Basically, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
+libinput makes it difficult to set mouse sensitivity to an exact ratio (e.g. exactly 50% sensitivity). There is a way to achieve this, however, although it only works on Xorg (some Wayland compositors also provide a way to control the pointer transformation matrix, but you'll have to research that on your own). Basically, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
 
 ```
 Section "InputClass"
