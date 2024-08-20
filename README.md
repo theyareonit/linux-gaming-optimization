@@ -4,7 +4,7 @@ THIS GUIDE IS UNFINISHED, AND MAY NEVER BE FINISHED.
 
 This is not a step-by-step instruction manual but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming.
 
-This is targeted toward more experienced users, due to the fact that many settings listed here cannot be blindly applied, and require some understanding of what is going on. That said, I don't claim to be an authority on this subject either, and some information here may be incorrect or misleading.
+This guide is targeted toward more experienced users, due to the fact that many settings listed here cannot be blindly applied, and require some understanding of what is going on. That said, I don't claim to be an authority on this subject either, and some information here may be incorrect or misleading.
 
 Before reading this guide, please go through [PC-Tuning](https://github.com/valleyofdoom/PC-Tuning) to learn how to properly configure your hardware and UEFI/BIOS settings (you can ignore the Windows-specific steps).
 
@@ -30,9 +30,10 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 * [8. Intel GPUs](#8-intel-gpus)
 * [9. Audio](#9-audio)
 * [10. File systems & storage](#10-file-systems--storage)
-* [11. Wine](#11-wine)
-* [12. Misc.](#12-misc)
-* [13. Further Reading](#13-further-reading)
+* [11. Networking](#11-networking)
+* [12. Wine](#12-wine)
+* [13. Misc.](#13-misc)
+* [14. Further Reading](#14-further-reading)
 
 # 1. Distributions
 
@@ -72,8 +73,8 @@ And similarly to the issue I personally experienced, the impression I get is tha
 | `nowatchdog` | Disable watchdog timers to [reduce interrupts](https://wiki.archlinux.org/title/Power_management#Disabling_NMI_watchdog). |
 | `nosoftlockup` | Don't log backtraces for processes that execute for longer than 120 seconds without yielding. Probably doesn't matter for any games. |
 | `audit=0` | Disable the [audit framework](https://wiki.archlinux.org/title/Audit_framework) to marginally reduce overhead (mentioned in section 8 of RHEL's [latency tuning guide](https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf)). |
-| `usbcore.autosuspend=60` | Set USB autosuspend timer to 60 seconds. Alternatively, replace `60` with any other value. A negative value will disable autosuspend entirely. |
-| `workqueue.power_efficient=false` | Disable [power-efficient workqueues](https://lwn.net/Articles/731052/) if enabled in your kernel configuration, which may cause cache misses due to workqueues being scheduled onto different cores. |
+| `usbcore.autosuspend=60` | Set USB autosuspend timer to 60 seconds (default: `2`). Alternatively, replace `60` with any other value. A negative value will disable autosuspend entirely. |
+| `workqueue.power_efficient=false` | Disable [power-efficient workqueues](https://lwn.net/Articles/731052/) if enabled in your kernel configuration, since it may cause cache misses due to workqueues being scheduled onto different cores. |
 | `skew_tick=1` | Skew timer ticks on different cores to [reduce lock contention](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux_for_real_time/7/html/tuning_guide/reduce_cpu_performance_spikes). |
 | `threadirqs` | [Thread interrupt handlers](https://wiki.linuxfoundation.org/realtime/documentation/technical_details/threadirq) by default. |
 | `tsc=reliable` | Disable clocksource verification for TSC, which may slightly reduce overhead. Not recommended due to the potential for [clock desync](https://lwn.net/Articles/388188/). |
@@ -108,7 +109,7 @@ TODO
 
 (from Aarrayy in the CachyOS Discord)
 
-If unsure, `BORE` or `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord).
+If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord).
 
 # 4. Display servers, compositors, & window managers
 
@@ -170,7 +171,7 @@ This section is written with Xorg & the proprietary NVIDIA drivers in mind.
 
 * [Custom EDID](https://nvidia.custhelp.com/app/answers/detail/a_id/3571/~/managing-a-display-edid-on-linux): CRU works fine through Wine as long as you export the EDID and load it this way.
 
-* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564): Might work to raise voltage too if you're clever?
+* [Lower voltage](https://github.com/NVIDIA/open-gpu-kernel-modules/discussions/236#discussioncomment-3553564): Scuffed, but should work on all cards.
 
 * [Raise voltage](https://www.phoronix.com/news/MTg0MDI): Not sure if this works on newer cards.
 
@@ -198,7 +199,11 @@ TODO
 
 TODO
 
-# 11. Wine
+# 11. Networking
+
+TODO
+
+# 12. Wine
 
 If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) to take advantage of LTO for 32-bit Windows games.
 
@@ -206,7 +211,7 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 [`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
-# 12. Misc.
+# 13. Misc.
 
 - [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. If you need the functionality offered by OBS instead, consider using [`obs-vkcapture`](https://github.com/nowrep/obs-vkcapture), and potentially [`obs-vaapi`](https://github.com/fzwoch/obs-vaapi) if on an AMD GPU.
 
@@ -216,7 +221,7 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 - Add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS). Make sure to use `ananicy-cpp` rather than `ananicy`. Also, don't use `ananicy-cpp` in combination with `gamemode`.
 
-# 13. Further reading
+# 14. Further reading
 
 [CachyOS Discord](https://discord.gg/cachyos-862292009423470592)
 
