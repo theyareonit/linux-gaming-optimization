@@ -1,6 +1,6 @@
 # Low-latency Linux gaming
 
-THIS GUIDE IS UNFINISHED, AND MAY NEVER BE FINISHED
+THIS GUIDE IS UNFINISHED, AND MAY NEVER BE FINISHED.
 
 This is not a step-by-step guide but rather a collection of resources and things to consider when tuning Linux systems for low-latency, low-jitter gaming. 
 
@@ -31,7 +31,7 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 * [9. Audio](#9-audio)
 * [10. File systems & storage](#10-file-systems--storage)
 * [11. Wine](#11-wine)
-* [12. Recording](#12-recording)
+* [12. Misc.](#12-misc)
 * [13. Further Reading](#13-further-reading)
 
 # 1. Distributions
@@ -108,7 +108,7 @@ TODO
 
 (from Aarrayy in the CachyOS Discord)
 
-If unsure, `BORE` or `rusty` are both solid picks (BORE is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software).
+If unsure, `BORE` or `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best choice will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software).
 
 # 4. Display servers, compositors, & window managers
 
@@ -206,11 +206,15 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 [`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
-# 12. Recording
+# 12. Misc.
 
-[`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features.
+- [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. Avoid OBS if performance is a concern.
 
-Avoid OBS on Linux if performance is a concern.
+- [Don't use `irqbalance`](https://www.reddit.com/r/linux_gaming/comments/emnu3k/removing_irqbalance_fixed_major_stuttering_in/fdqykma/). Manually setting IRQ affinities is also typically not necessary on Linux either; the kernel does a good job on its own.
+
+- Make sure to add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS, also make sure to use `ananicy-cpp` rather than `ananicy`).
+
+- Nvidia is perfectly fine on Linux with the newest drivers, don't listen to anyone who says you need to buy AMD to have a good experience.
 
 # 13. Further reading
 
