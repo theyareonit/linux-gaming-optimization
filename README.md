@@ -32,7 +32,7 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 * [10. File systems & storage](#10-file-systems--storage)
 * [11. Networking](#11-networking)
 * [12. Wine](#12-wine)
-* [13. Misc.](#13-misc)
+* [13. Miscellaneous](#13-miscellaneous)
 * [14. Further Reading](#14-further-reading)
 
 # 1. Distributions
@@ -109,7 +109,7 @@ TODO
 
 (from Aarrayy in the CachyOS Discord)
 
-If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord).
+If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
 
 # 4. Display servers, compositors, & window managers
 
@@ -117,7 +117,7 @@ TODO: WM/compositor comparison
 
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you're trying to do multi-monitor VRR. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
+The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you're trying to do multi-monitor VRR or can't stand screen tearing while gaming. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
@@ -129,7 +129,9 @@ Not a display server in itself, but a protocol implemented by various display se
 
 ## Mouse sensitivity
 
-libinput makes it difficult to set mouse sensitivity to an exact ratio (e.g. exactly 50% sensitivity). There is a way to achieve this, however, although it only works on Xorg (some Wayland compositors also provide a way to control the pointer transformation matrix, but you'll have to research that on your own). Basically, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
+libinput makes it difficult to set mouse sensitivity to an exact ratio (e.g. exactly 50% sensitivity). There is a way to achieve this, however, although it only works on Xorg (some Wayland compositors also provide a way to control the pointer transformation matrix, but you'll have to research that on your own). 
+
+Basically, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
 
 ```
 Section "InputClass"
@@ -211,15 +213,15 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 [`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
-# 13. Misc.
+# 13. Miscellaneous
 
-- [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. If you need the functionality offered by OBS instead, consider using [`obs-vkcapture`](https://github.com/nowrep/obs-vkcapture), and potentially [`obs-vaapi`](https://github.com/fzwoch/obs-vaapi) if on an AMD GPU.
+* [`gpu-screen-recorder`](https://git.dec05eba.com/gpu-screen-recorder/about/) is by far the best recording/clipping/streaming tool for Linux if you don't need too many features. If you need the functionality offered by OBS instead, consider using [`obs-vkcapture`](https://github.com/nowrep/obs-vkcapture), and potentially [`obs-vaapi`](https://github.com/fzwoch/obs-vaapi) if on an Intel or AMD GPU.
 
-- [Don't use `irqbalance`](https://www.reddit.com/r/linux_gaming/comments/emnu3k/removing_irqbalance_fixed_major_stuttering_in/fdqykma/). Manually setting IRQ affinities is also typically not necessary on Linux either; the kernel does a good job on its own.
+* [Don't use `irqbalance`](http://www.alexonlinux.com/why-interrupt-affinity-with-multiple-cores-is-not-such-a-good-thing). Manually setting IRQ affinities is also typically not necessary on Linux either; the kernel does a good job on its own.
 
-- Use [`evhz`](https://git.sr.ht/~iank/evhz) or [`MouseTester`](https://github.com/valleyofdoom/MouseTester) (through Wine) to ensure that your mouse is polling at the correct rate. For `MouseTester`, you may have to hover your cursor over the data plot window to get accurate results.
+* Use [`evhz`](https://git.sr.ht/~iank/evhz) or [`MouseTester`](https://github.com/valleyofdoom/MouseTester) (through Wine) to ensure that your mouse is polling at the correct rate. For `MouseTester`, you may have to hover your cursor over the data plot window to get accurate results.
 
-- Add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS). Make sure to use `ananicy-cpp` rather than `ananicy`. Also, don't use `ananicy-cpp` in combination with `gamemode`.
+* Add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS). Make sure to use `ananicy-cpp` rather than `ananicy`. Also, don't use `ananicy-cpp` in combination with `gamemode`.
 
 # 14. Further reading
 
