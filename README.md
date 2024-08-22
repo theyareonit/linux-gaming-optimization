@@ -117,7 +117,7 @@ TODO: WM/compositor comparison
 
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you're trying to do multi-monitor VRR or can't stand screen tearing while gaming. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
+The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you really can't stand screen tearing, but can't/don't want to use VRR. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
