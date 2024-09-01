@@ -105,10 +105,6 @@ TODO
 
 * [sched-ext](https://wiki.cachyos.org/kernel/sched-ext/)
 
-![scx](resources/scx.png)
-
-(from Aarrayy in the CachyOS Discord)
-
 If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
 
 # 4. Display servers, compositors, & window managers
@@ -139,11 +135,12 @@ Section "InputClass"
 	MatchIsPointer "on"
 	Driver "libinput"
 	Option "AccelProfile" "flat"
+    Option "AccelSpeed" "0"
 	Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
 EndSection
 ```
 
-Setting `AccelProfile` to `flat` disables mouse acceleration.
+Setting `AccelProfile` to `flat` and `AccelSpeed` to `0` disables mouse acceleration.
 
 `TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse sensitivity is effectively divided by the last digit of this matrix. For instance, setting the last digit to `4`, i.e. `Option "TransformationMatrix" "1 0 0 0 1 0 0 0 4"`, will divide your effective sensitivity by 4 (resulting in 25% sensitivity). Setting the last digit to `0.25` will divide your effective sensitivity by 0.25 (resulting in 400% sensitivity).
 
