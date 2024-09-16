@@ -135,7 +135,7 @@ Section "InputClass"
 	MatchIsPointer "on"
 	Driver "libinput"
 	Option "AccelProfile" "flat"
-    Option "AccelSpeed" "0"
+	Option "AccelSpeed" "0"
 	Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
 EndSection
 ```
