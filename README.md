@@ -45,9 +45,9 @@ Arch-based distribution that comes with its own optimized repositories and offer
 
 I'm not going to go too deep into kernel-related tuning (besides kernel parameters) in this guide because the CachyOS kernels are essentially as good as it gets.
 
-[Information about the CachyOS kernels](https://wiki.cachyos.org/kernel/kernel/)
+[Information about the CachyOS kernels](https://wiki.cachyos.org/features/kernel/)
 
-[Information about the CachyOS repositories](https://wiki.cachyos.org/cachyos_repositories/what_are_the_cachyos_repo/)
+[Information about the CachyOS repositories](https://wiki.cachyos.org/features/optimized_repos/)
 
 ## Gentoo
 
@@ -103,7 +103,7 @@ TODO
 
 * [BORE](https://github.com/firelzrd/bore-scheduler)
 
-* [sched-ext](https://wiki.cachyos.org/kernel/sched-ext/)
+* [sched-ext](https://wiki.cachyos.org/configuration/sched-ext/)
 
 If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
 
