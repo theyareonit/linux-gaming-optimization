@@ -24,6 +24,7 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 * [5. libinput](#5-libinput)
     * [Mouse sensitivity](#mouse-sensitivity)
     * [Debouncing](#debouncing)
+	* [evdev](#evdev)
 * [6. NVIDIA GPUs](#6-nvidia-gpus)
     * [nvidia-settings](#nvidia-settings)
 * [7. AMD GPUs](#7-amd-gpus)
@@ -175,7 +176,9 @@ Section "InputClass"
 EndSection
 ```
 
-This is just a basic configuration file to set all pointers to use evdev, and to disable mouse acceleration. You can use the same pointer transformation matrix as with libinput to control sensitivity. You may additionally want to force all keyboards to use evdev with `MatchIsKeyboard`.
+This is just a basic configuration file to set all pointers to use evdev, and to disable mouse acceleration. Like with libinput, you can use the `TransformationMatrix` option to set an exact sensitivity. 
+
+You may additionally want to force all keyboards to use evdev with `MatchIsKeyboard`.
 
 # 6. NVIDIA GPUs
 
