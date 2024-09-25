@@ -143,7 +143,9 @@ EndSection
 
 Setting `AccelProfile` to `flat` and `AccelSpeed` to `0` disables mouse acceleration.
 
-`TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse sensitivity is effectively divided by the last digit of this matrix. For instance, setting the last digit to `4`, i.e. `Option "TransformationMatrix" "1 0 0 0 1 0 0 0 4"`, will divide your effective sensitivity by 4 (resulting in 25% sensitivity). Setting the last digit to `0.25` will divide your effective sensitivity by 0.25 (resulting in 400% sensitivity).
+`TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse's horizontal speed can be controlled with the first value of this matrix, and your mouse's vertical speed can be controlled with the fifth value of this matrix. 
+
+For instance, you can set your mouse to 25% sensitivity with `Option "TransformationMatrix" "0.25 0 0 0 0.25 0 0 0 1"`.
 
 Instead of `MatchIsPointer`, you can do something like `MatchVendor "Razer"` or `MatchProduct "Viper 8K"` if you don't want the configuration to apply to all mice: in this example, it will search for the substring `"Viper 8K"` within the product's name, so you don't need to know the full, exact name of the mouse that your system sees.
 
