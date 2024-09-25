@@ -244,6 +244,8 @@ If running Direct3D games with Wine through the command line or a script, ensure
 
 * Add custom rules for your games if using [`ananicy-cpp`](https://gitlab.com/ananicy-cpp/ananicy-cpp) (enabled by default in CachyOS). Make sure to use `ananicy-cpp` rather than `ananicy`. Also, don't use `ananicy-cpp` in combination with `gamemode`.
 
+* Choose a good cursor theme, I like [Windows Classic Dark](https://www.pling.com/p/2060588/).
+
 # 14. Further reading
 
 [CachyOS Discord](https://discord.gg/cachyos-862292009423470592)
