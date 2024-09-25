@@ -158,6 +158,25 @@ MatchUdevType=mouse
 ModelBouncingKeys=1
 ```
 
+## evdev
+
+You can also use `evdev` as a driver instead of libinput on xorg, which may potentially provide lower latency (haven't tested). For this, you'll need to install a package like `xf86-input-evdev` or similar (*not* `libevdev`).
+
+Your configuration file will look something like this:
+
+```
+Section "InputClass"
+	Identifier "Mouse"
+	MatchIsPointer "on"
+	Driver "evdev"
+	Option "AccelerationScheme" "none"
+	Option "AccelerationProfile" "-1"
+	Option "AccelSpeed" "0"
+EndSection
+```
+
+This is just a basic configuration file to set all pointers to use evdev, and to disable mouse acceleration. You can use the same pointer transformation matrix as with libinput to control sensitivity. You may additionally want to force all keyboards to use evdev with `MatchIsKeyboard`.
+
 # 6. NVIDIA GPUs
 
 This section is written with Xorg & the proprietary NVIDIA drivers in mind.
