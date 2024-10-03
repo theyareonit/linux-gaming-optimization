@@ -175,10 +175,13 @@ Section "InputClass"
 	Option "AccelerationScheme" "none"
 	Option "AccelerationProfile" "-1"
 	Option "AccelSpeed" "0"
+	Option "VelocityReset" "30000"
 EndSection
 ```
 
-This is just a basic configuration file to set all pointers to use evdev, and to disable mouse acceleration. Like with libinput, you can use the `TransformationMatrix` option to set an exact sensitivity. 
+This is just a basic configuration file to set all pointers to use evdev, to disable mouse acceleration, and to set `VelocityReset` to 30 seconds (meaning that the mouse's subpixel position will only be discarded after 30 seconds of inactivity, rather than the default of 300ms). 
+
+Like with libinput, you can use the `TransformationMatrix` option to set an exact sensitivity. However, you can also use the `ConstantDeceleration` option instead, as described [here](https://www.x.org/wiki/Development/Documentation/PointerAcceleration/). This requires deleting the `AccelerationScheme` line.
 
 You may additionally want to force all keyboards to use evdev with `MatchIsKeyboard`.
 
