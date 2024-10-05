@@ -108,19 +108,23 @@ TODO
 
 If unsure, `BORE` and `rusty` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
 
+If experiencing strange freezing or other performance issues, changing schedulers may be a good idea.
+
 # 4. Display servers, compositors, & window managers
 
-TODO: WM/compositor comparison
+Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. And even "light" WMs can still have performance bugs.
 
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, often the safer choice unless you really can't stand screen tearing, but can't/don't want to use VRR. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
+The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, usually the best choice if you want things to "just work". Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
 ## Wayland
 
-Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR.
+Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. Should also offer a smoother experience than Xorg on NVIDIA due to explicit sync.
+
+At a base level, you'll need to make sure that the compositor you choose supports explicit sync (if on NVIDIA), and has the capability to enable tearing in games (i.e. to disable Vsync).
 
 # 5. libinput
 
@@ -128,7 +132,7 @@ Not a display server in itself, but a protocol implemented by various display se
 
 To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `25% = 0.25`, and `0.25 - 1 = -0.75`). Make sure you set your Accel Profile to `flat` as well (to disable acceleration).
 
-However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (xorg only):
+However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (Xorg only):
 
 ```
 Section "InputClass"
@@ -160,7 +164,7 @@ ModelBouncingKeys=1
 
 ## evdev
 
-You can also use `evdev` as a driver instead of libinput on xorg, which may potentially provide lower latency (haven't tested). For this, you'll need to install a package like `xf86-input-evdev` or similar (*not* `libevdev`).
+You can also use `evdev` as a driver instead of libinput on Xorg, which may potentially provide lower latency (haven't tested). For this, you'll need to install a package like `xf86-input-evdev` or similar (*not* `libevdev`).
 
 Your configuration file will look something like this:
 
