@@ -124,11 +124,11 @@ Not a display server in itself, but a protocol implemented by various display se
 
 # 5. libinput
 
-## Mouse sensitivity
+## Sensitivity and acceleration
 
-libinput makes it difficult to set mouse sensitivity to an exact ratio (e.g. exactly 50% sensitivity). There is a way to achieve this, however, although it only works on Xorg (some Wayland compositors also provide a way to control the pointer transformation matrix, but you'll have to research that on your own). 
+To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `25% = 0.25`, and `0.25 - 1 = -0.75`). Make sure you use a `flat` AccelProfile.
 
-Basically, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
+However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (xorg only):
 
 ```
 Section "InputClass"
@@ -136,16 +136,15 @@ Section "InputClass"
 	MatchIsPointer "on"
 	Driver "libinput"
 	Option "AccelProfile" "flat"
-	Option "AccelSpeed" "0"
 	Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
 EndSection
 ```
 
-Setting `AccelProfile` to `flat` and `AccelSpeed` to `0` disables mouse acceleration.
+Setting `AccelProfile` to `flat` disables mouse acceleration.
 
 `TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse's horizontal speed can be controlled with the first value of this matrix, and your mouse's vertical speed can be controlled with the fifth value of this matrix. 
 
-For instance, you can set your mouse to 25% sensitivity with `Option "TransformationMatrix" "0.25 0 0 0 0.25 0 0 0 1"`.
+For instance, you can set your mouse to 25% horizontal sensitivity and 50% vertical sensitivity with `Option "TransformationMatrix" "0.25 0 0 0 0.5 0 0 0 1"`.
 
 Instead of `MatchIsPointer`, you can do something like `MatchVendor "Razer"` or `MatchProduct "Viper 8K"` if you don't want the configuration to apply to all mice: in this example, it will search for the substring `"Viper 8K"` within the product's name, so you don't need to know the full, exact name of the mouse that your system sees.
 
@@ -181,7 +180,7 @@ EndSection
 
 This is just a basic configuration file to set all pointers to use evdev, to disable mouse acceleration, and to set `VelocityReset` to 30 seconds (meaning that the mouse's subpixel position will only be discarded after 30 seconds of inactivity, rather than the default of 300ms). 
 
-Like with libinput, you can use the `TransformationMatrix` option to set an exact sensitivity. However, you can also use the `ConstantDeceleration` option instead, as described [here](https://www.x.org/wiki/Development/Documentation/PointerAcceleration/). This requires deleting the `AccelerationScheme` line.
+Like with libinput, you can use the `TransformationMatrix` option to set a sensitivity value. However, you can also use the `ConstantDeceleration` option instead, as described [here](https://www.x.org/wiki/Development/Documentation/PointerAcceleration/). This requires deleting the `AccelerationScheme` line.
 
 You may additionally want to force all keyboards to use evdev with `MatchIsKeyboard`.
 
@@ -189,7 +188,7 @@ You may additionally want to force all keyboards to use evdev with `MatchIsKeybo
 
 This section is written with Xorg & the proprietary NVIDIA drivers in mind.
 
-* [OpenGL environment variables](https://download.nvidia.com/XFree86/Linux-x86_64/555.58.02/README/openglenvvariables.html): Of particular interest is the section on `__GL_YIELD`. It's also worth looking into `__GL_MaxFramesAllowed`, but I can't find any official documentation for it.
+* [OpenGL environment variables](https://download.nvidia.com/XFree86/Linux-x86_64/560.35.03/README/openglenvvariables.html): Of particular interest is the section on `__GL_YIELD`. It's also worth looking into `__GL_MaxFramesAllowed`, but I can't find any official documentation for it.
 
 * [Kernel Module Parameters](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters): Notable are `NVreg_InitializeSystemMemoryAllocations` and `NVreg_UsePageAttributeTable`, though CachyOS already sets these on its own.
 
