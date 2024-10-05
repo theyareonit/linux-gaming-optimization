@@ -126,7 +126,7 @@ Not a display server in itself, but a protocol implemented by various display se
 
 ## Sensitivity and acceleration
 
-To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `25% = 0.25`, and `0.25 - 1 = -0.75`). Make sure you use a `flat` AccelProfile.
+To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `25% = 0.25`, and `0.25 - 1 = -0.75`). Make sure you set your Accel Profile to `flat` as well (to disable acceleration).
 
 However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (xorg only):
 
@@ -139,8 +139,6 @@ Section "InputClass"
 	Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
 EndSection
 ```
-
-Setting `AccelProfile` to `flat` disables mouse acceleration.
 
 `TransformationMatrix` is a matrix of values that can be used to warp mouse input in [various ways](https://wiki.ubuntu.com/X/InputCoordinateTransformation). But all you need to know for this section is that your mouse's horizontal speed can be controlled with the first value of this matrix, and your mouse's vertical speed can be controlled with the fifth value of this matrix. 
 
