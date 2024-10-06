@@ -124,7 +124,7 @@ Ensure you disable desktop composition while gaming if using Xorg. The way to do
 
 Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. Should also offer a smoother experience than Xorg on NVIDIA due to explicit sync.
 
-At a base level, you'll need to make sure that the compositor you choose supports explicit sync (if on NVIDIA), and has the capability to enable tearing in games (i.e. to disable Vsync).
+At a base level, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and optionally, has support for explicit sync.
 
 The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however.
 
@@ -244,6 +244,8 @@ If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanch
 If running Direct3D games with Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
 
 [`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
+
+Enable Wine's [native Wayland driver](https://wiki.archlinux.org/title/Wine#Wayland) if on Wayland.
 
 # 13. Miscellaneous
 
