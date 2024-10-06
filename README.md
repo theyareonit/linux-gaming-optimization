@@ -116,7 +116,7 @@ Obviously, a less bloated system is going to run better than a bloated system, s
 
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland, usually the best choice if you want things to "just work". Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
+The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
@@ -126,9 +126,13 @@ Not a display server in itself, but a protocol implemented by various display se
 
 At a base level, you'll need to make sure that the compositor you choose supports explicit sync (if on NVIDIA), and has the capability to enable tearing in games (i.e. to disable Vsync).
 
-The only compositor I know of that lets you force tearing outside of fullscreen applications is [labwc](https://github.com/labwc/labwc), if that's something you care about.
+The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however.
 
-You may want to use a greeter such as [ReGreet](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
+You may want to use a greeter such as [`ReGreet`](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
+
+Of potential interest: 
+- [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md)
+- [`hyprland` environment variables](https://wiki.hyprland.org/Configuring/Environment-variables/)
 
 # 5. libinput
 
