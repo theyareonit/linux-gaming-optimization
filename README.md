@@ -112,7 +112,7 @@ If experiencing strange freezing or other performance issues, changing scheduler
 
 # 4. Display servers, compositors, & window managers
 
-Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. And even "light" WMs can still have performance bugs.
+Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and low disk size does not mean much.
 
 ## Xorg
 
@@ -126,11 +126,15 @@ Not a display server in itself, but a protocol implemented by various display se
 
 At a base level, you'll need to make sure that the compositor you choose supports explicit sync (if on NVIDIA), and has the capability to enable tearing in games (i.e. to disable Vsync).
 
+The only compositor I know of that lets you force tearing outside of fullscreen applications is [labwc](https://github.com/labwc/labwc), if that's something you care about.
+
+You may want to use a greeter such as [ReGreet](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
+
 # 5. libinput
 
 ## Sensitivity and acceleration
 
-To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `25% = 0.25`, and `0.25 - 1 = -0.75`). Make sure you set your Accel Profile to `flat` as well (to disable acceleration).
+To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `0.25 - 1 = -0.75`). Make sure you set your Accel Profile to `flat` as well (to disable acceleration).
 
 However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (Xorg only):
 
@@ -175,7 +179,6 @@ Section "InputClass"
 	Driver "evdev"
 	Option "AccelerationScheme" "none"
 	Option "AccelerationProfile" "-1"
-	Option "AccelSpeed" "0"
 	Option "VelocityReset" "30000"
 EndSection
 ```
