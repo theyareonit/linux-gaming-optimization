@@ -66,7 +66,7 @@ Some of the parameters listed may compromise the security or stability of your m
 
 If you want to disable power saving related settings, I would advise disabling them in both UEFI/BIOS settings as well as kernel parameters. I say this due to stuttering that I experienced in the past, which was caused by having processor C-States disabled in UEFI but not in kernel parameters. I assume that something tried to "override" my UEFI settings.
 
-And similarly to the issue I personally experienced, the impression I get is that you should be redudant with your settings, just to be on the safe side. Even [Intel](https://www.intel.com/content/www/us/en/developer/articles/technical/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html) recommends using all 3 of the following parameters: `intel_idle.max_cstate=0`, `processor.max_cstate=0`, and `idle=poll`, despite the fact that `idle=poll` should make the other two redundant. This may just be paranoia though.
+And similarly to the issue I personally experienced, the impression I get is that you should be redudant with your settings, just to be on the safe side. Even [Intel](https://www.intel.com/content/www/us/en/developer/articles/technical/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html) recommends using all 3 of the following parameters: `intel_idle.max_cstate=0`, `processor.max_cstate=0`, and `idle=poll`, despite the fact that `idle=poll` should in theory make the other two redundant. This may just be paranoia though.
 
 | Parameter | Explanation |
 | ---       | ---         |
@@ -112,7 +112,7 @@ If experiencing strange freezing or other performance issues, changing scheduler
 
 # 4. Display servers, compositors, & window managers
 
-Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and the size on disk/RAM usage of a WM does not mean much.
+Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and the size on disk/RAM usage of a WM does not necessarily tell you how it actually performs.
 
 ## Xorg
 
@@ -126,13 +126,12 @@ Not a display server in itself, but a protocol implemented by various display se
 
 If you want the lowest possible latency, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and has support for explicit sync (if on NVIDIA). Again though, just having these capabilities does not automatically make a compositor low-latency.
 
-The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however.
+The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however, and somewhat comparable latency outside of fullscreen (within 2ms) can be achieved on [`sway`](https://swaywm.org/) with `max_render_time` and [`Hyprland`](https://hyprland.org/) with `render_ahead_of_time` (both of these compositors have explicit sync support).
 
 You may want to use a greeter such as [`ReGreet`](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
 
 Of potential interest: 
 - [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md) (especially `WLR_RENDERER`)
-- [`hyprland` environment variables](https://wiki.hyprland.org/Configuring/Environment-variables/)
 
 # 5. libinput
 
@@ -140,7 +139,7 @@ Of potential interest:
 
 To convert mouse sensitivity from a percentage (e.g. `25%`) into a libinput Accel Speed value (e.g. `-0.75`), simply subtract `1` from the percentage (e.g. `0.25 - 1 = -0.75`). Make sure you set your Accel Profile to `flat` as well (to disable acceleration).
 
-However, if you want to separate vertical and horizontal sensitivity, what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content (Xorg only):
+If you want to separate vertical and horizontal sensitivity (Xorg only), what you have to do is create a file in `/etc/X11/xorg.conf.d/` called something like `50-mouse-sensitivity.conf`, with the following content:
 
 ```
 Section "InputClass"
@@ -239,13 +238,13 @@ TODO
 
 # 12. Wine
 
-If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) to take advantage of LTO for 32-bit Windows games.
+Enable Wine's [native Wayland driver](https://wiki.archlinux.org/title/Wine#Wayland) if on Wayland.
 
 If running Direct3D games with Wine through the command line or a script, ensure you're using [`dxvk`](https://github.com/doitsujin/dxvk). Also, consider using the environment variable `WINEDEBUG=-all` to marginally reduce overhead.
 
-[`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
+If on an AMD or Intel GPU, consider [`static-wine32`](https://github.com/MIvanchev/static-wine32) to take advantage of LTO for 32-bit Windows games.
 
-Enable Wine's [native Wayland driver](https://wiki.archlinux.org/title/Wine#Wayland) if on Wayland.
+[`wine-osu`](https://gist.github.com/NelloKudo/b6f6d48807548bd3cacd3018a1cadef5) provides low-latency audio and various other patches that may potentially improve performance.
 
 # 13. Miscellaneous
 
