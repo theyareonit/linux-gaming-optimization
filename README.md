@@ -42,7 +42,7 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 
 [Website](https://cachyos.org/)
 
-Arch-based distribution that comes with its own optimized repositories and offers custom kernels with various patches (& optimizations such as LTO). Highly recommended.
+Arch-based distribution that comes with its own optimized repositories and offers custom kernels with various patches (& optimizations such as [LTO](https://www.phoronix.com/review/clang-lto-kernel)). Highly recommended.
 
 I'm not going to go too deep into kernel-related tuning (besides kernel parameters) in this guide because the CachyOS kernels are essentially as good as it gets.
 
@@ -112,7 +112,7 @@ If experiencing strange freezing or other performance issues, changing scheduler
 
 # 4. Display servers, compositors, & window managers
 
-Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and low disk size does not mean much.
+Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and the size on disk/RAM usage of a WM does not mean much.
 
 ## Xorg
 
@@ -122,16 +122,16 @@ Ensure you disable desktop composition while gaming if using Xorg. The way to do
 
 ## Wayland
 
-Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. Should also offer a smoother experience than Xorg on NVIDIA due to explicit sync.
+Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Should offer a smoother experience than Xorg on NVIDIA due to explicit sync & a few Xorg-specific driver bugs (unless your compositor is super bloated). Also offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. 
 
-At a base level, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and optionally, has support for explicit sync.
+If you want the lowest possible latency, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and has support for explicit sync. Again though, just having these capabilities does not automatically make a compositor low-latency.
 
 The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however.
 
 You may want to use a greeter such as [`ReGreet`](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
 
 Of potential interest: 
-- [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md)
+- [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md) (especially `WLR_RENDERER`; I notice that the default `gles2` renderer feels almost... pixelated? Hard to describe. The `vulkan` renderer is a bit buggy sometimes though, and I'm not sure how it compares in terms of performance/latency.)
 - [`hyprland` environment variables](https://wiki.hyprland.org/Configuring/Environment-variables/)
 
 # 5. libinput
@@ -195,7 +195,7 @@ You may additionally want to force all keyboards to use evdev with `MatchIsKeybo
 
 # 6. NVIDIA GPUs
 
-This section is written with Xorg & the proprietary NVIDIA drivers in mind.
+This section is written with Xorg & the proprietary NVIDIA drivers in mind, but much of this applies on Wayland too.
 
 * [OpenGL environment variables](https://download.nvidia.com/XFree86/Linux-x86_64/560.35.03/README/openglenvvariables.html): Of particular interest is the section on `__GL_YIELD`. It's also worth looking into `__GL_MaxFramesAllowed`, but I can't find any official documentation for it.
 
