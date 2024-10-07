@@ -124,14 +124,14 @@ Ensure you disable desktop composition while gaming if using Xorg. The way to do
 
 Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Should offer a smoother experience than Xorg on NVIDIA due to explicit sync & a few Xorg-specific driver bugs (unless your compositor is super bloated). Also offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. 
 
-If you want the lowest possible latency, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and has support for explicit sync. Again though, just having these capabilities does not automatically make a compositor low-latency.
+If you want the lowest possible latency, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync), and has support for explicit sync (if on NVIDIA). Again though, just having these capabilities does not automatically make a compositor low-latency.
 
 The only compositor I know of that lets you force tearing outside of fullscreen applications is [`labwc`](https://github.com/labwc/labwc), if that's something you care about. It currently does not support explicit sync, however.
 
 You may want to use a greeter such as [`ReGreet`](https://github.com/rharish101/ReGreet) that runs in Wayland rather than Xorg (I noticed SDDM leaves Xorg running in the background, not sure about others).
 
 Of potential interest: 
-- [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md) (especially `WLR_RENDERER`; I notice that the default `gles2` renderer feels almost... pixelated? Hard to describe. The `vulkan` renderer is a bit buggy sometimes though, and I'm not sure how it compares in terms of performance/latency.)
+- [`wlroots` environment variables](https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/master/docs/env_vars.md) (especially `WLR_RENDERER`)
 - [`hyprland` environment variables](https://wiki.hyprland.org/Configuring/Environment-variables/)
 
 # 5. libinput
