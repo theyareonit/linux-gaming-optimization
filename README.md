@@ -44,8 +44,6 @@ Before reading this guide, please go through [PC-Tuning](https://github.com/vall
 
 Arch-based distribution that comes with its own optimized repositories and offers custom kernels with various patches (& optimizations such as [LTO](https://www.phoronix.com/review/clang-lto-kernel)). Highly recommended.
 
-I'm not going to go too deep into kernel-related tuning (besides kernel parameters) in this guide because the CachyOS kernels are essentially as good as it gets.
-
 [Information about the CachyOS kernels](https://wiki.cachyos.org/features/kernel/)
 
 [Information about the CachyOS repositories](https://wiki.cachyos.org/features/optimized_repos/)
@@ -64,9 +62,9 @@ Some of the parameters listed may compromise the security or stability of your m
 
 ## General
 
-If you want to disable power saving related settings, I would advise disabling them in both UEFI/BIOS settings as well as kernel parameters. I say this due to stuttering that I experienced in the past, which was caused by having processor C-States disabled in UEFI but not in kernel parameters. I assume that something tried to "override" my UEFI settings.
+If you want to disable power saving related settings, I would advise disabling them using kernel parameters *rather than* UEFI/BIOS settings. I say this due to system stutters that I experienced in the past, which was caused by having processor C-States disabled in UEFI but not in kernel parameters.
 
-And similarly to the issue I personally experienced, the impression I get is that you should be redudant with your settings, just to be on the safe side. Even [Intel](https://www.intel.com/content/www/us/en/developer/articles/technical/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html) recommends using all 3 of the following parameters: `intel_idle.max_cstate=0`, `processor.max_cstate=0`, and `idle=poll`, despite the fact that `idle=poll` should in theory make the other two redundant. This may just be paranoia though.
+It is probably safer to be redundant with your choice of settings. [Intel](https://www.intel.com/content/www/us/en/developer/articles/technical/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html) recommends using all 3 of the following parameters: `intel_idle.max_cstate=0`, `processor.max_cstate=0`, and `idle=poll`, despite the fact that `idle=poll` should in theory make the other two redundant. This may just be paranoia though.
 
 | Parameter | Explanation |
 | ---       | ---         |
@@ -102,27 +100,25 @@ TODO
 
 # 3. Schedulers
 
-* [BORE](https://github.com/firelzrd/bore-scheduler)
+* EEVDF (default scheduler of the Linux kernel as of version 6.6)
 
 * [sched-ext](https://wiki.cachyos.org/configuration/sched-ext/)
 
-If unsure, `BORE` and `bpfland` are both solid picks (`BORE` is used by default in CachyOS). But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
+If unsure, `EEVDF` and `bpfland` are both solid picks in my experience. But the best option will depend on your choice of game, your hardware, and whether you have anything else running while playing (e.g. recording software, Discord). Some schedulers may improve in performance in the future due to updates.
 
-If experiencing strange freezing or other performance issues, changing schedulers may be a good idea.
+Certain experimental schedulers might cause system hangs or other performance issues. Be careful with newer sched-ext schedulers.
 
 # 4. Display servers, compositors, & window managers
 
-Obviously, a less bloated system is going to run better than a bloated system, so you'll probably want to avoid any DE/WM that runs an excessive number of operations in the background. But even "light" WMs can still have performance bugs, and the size on disk/RAM usage of a WM does not necessarily tell you how it actually performs.
-
 ## Xorg
 
-The most popular implementation of the X11 display protocol. The more mature and better-supported option compared to Wayland. Xorg may also make it easier to configure GPU and input related settings, depending on your setup and needs.
+The most popular implementation of the X11 display protocol. Xorg may make it easier to configure GPU and input related settings, depending on your setup and needs, but it is gradually losing popularity among Linux users and may become unsupported by some software in the future.
 
 Ensure you disable desktop composition while gaming if using Xorg. The way to do this will depend on your choice of compositor/DE. I personally don't use desktop composition anywhere, because the latency bothers me more than the tearing even on the desktop, but it's up to you.
 
 ## Wayland
 
-Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). Should offer a smoother experience than Xorg on NVIDIA due to explicit sync & a few Xorg-specific driver bugs (unless your compositor is super bloated). Also offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. 
+Not a display server in itself, but a protocol implemented by various display servers (called "Wayland compositors"). May offer a smoother experience than Xorg on some systems. Also offers the potential for tear-free gaming with [relatively low latency](https://artemis.sh/2022/09/18/wayland-from-an-x-apologist.html), without the need for VRR. 
 
 If you want the lowest possible latency, you'll need to make sure that the compositor you choose has the capability to enable tearing in games (i.e. to disable Vsync). Again though, just having these capabilities does not automatically make a compositor low-latency.
 
